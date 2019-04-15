@@ -5,6 +5,7 @@
   "main": "./build/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
+    "pkgfiles": "node_modules/pkgfiles/bin/pkgfiles.js ",
     "prepublish": "webpack --config webpack.config.js"
   },
   "repository": {
