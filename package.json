@@ -1,11 +1,11 @@
 {
   "name": "bb-frame-animation",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "js实现帧动画的原理",
   "main": "./build/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "postpublish": "webpack --config webpack.config.js"
+    "prepublish": "webpack --config webpack.config.js"
   },
   "repository": {
     "type": "git",
