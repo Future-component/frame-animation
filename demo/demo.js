@@ -32,71 +32,71 @@ var leftRunningMap = ["0 -373", "-175 -376", "-350 -377", "-524 -377", "-699 -37
 var rabbitWinMap = ["0 0", "-198 0", "-401 0", "-609 0", "-816 0", "0 -96", "-208 -97", "-415 -97", "-623 -97", "-831 -97", "0 -203", "-207 -203", "-415 -203", "-623 -203", "-831 -203", "0 -307", "-206 -307", "-414 -307", "-623 -307"];
 var rabbitLoseMap = ["0 0", "-163 0", "-327 0", "-491 0", "-655 0", "-819 0", "0 -135", "-166 -135", "-333 -135", "-500 -135", "-668 -135", "-835 -135", "0 -262"];
 
-var loinStyle = [195, 712]
-var loinMap = []
+var loinStyle = [195, 712];
+var loinMap = [];
 Array(4).fill(0).forEach((item, index) => {
     var left = Math.floor(index * (loinStyle[1] / 4))
     loinMap.push(`-${left} 0`)
 });
 
-var egg1Style = [336, 6894]
-var egg1Map = []
+var egg1Style = [336, 6894];
+var egg1Map = [];
 Array(18).fill(0).forEach((item, index) => {
     var left = Math.floor(index * (egg1Style[1] * (195 / 336) / 18))
-    egg1Map.push(`-${left} 0`)
-})
+    egg1Map.push(`-${left} 0`);
+});
 
-var eggStyle = [336, 3064]
-var eggMap = []
+var eggStyle = [336, 3064];
+var eggMap = [];
 Array(8).fill(0).forEach((item, index) => {
     var left = Math.floor(index * (eggStyle[1] * (195 / 336) / 8))
-    eggMap.push(`-${left} 0`)
-})
+    eggMap.push(`-${left} 0`);
+});
 
-var xuStyle = [195, 712]
-var xuMap = []
+var xuStyle = [195, 712];
+var xuMap = [];
 Array(4).fill(0).forEach((item, index) => {
     var left = Math.floor(index * (xuStyle[1] / 4))
-    xuMap.push(`-${left} 0`)
-})
+    xuMap.push(`-${left} 0`);
+});
+
+var animation = window.frameAnimation;
 
 // (function() {
-//     var loinAn = animation().loadImage([images]).changePosition($loin, loinMap, images[5]).repeatForever();
+//     var loinAn = animation().loadImage(images).changePosition($loin, loinMap, images[5]).repeatForever();
 //     loinAn.start(100);
 // })();
 
 // (function() {
-//     var egg1An = animation().loadImage([images]).changePosition($egg1, egg1Map, images[3]).repeatForever();
+//     var egg1An = animation().loadImage(images).changePosition($egg1, egg1Map, images[3]).repeatForever();
 //     egg1An.start(80);
 // })();
 
 // (function() {
-//     var eggAn = animation().loadImage([images]).changePosition($egg, eggMap, images[4]).repeatForever();
+//     var eggAn = animation().loadImage(images).changePosition($egg, eggMap, images[4]).repeatForever();
 //     eggAn.start(80);
 // })();
 
 // (function() {
-//     var xuAn = animation().loadImage([images]).changePosition($xu, xuMap, images[6]).repeatForever();
+//     var xuAn = animation().loadImage(images).changePosition($xu, xuMap, images[6]).repeatForever();
 //     xuAn.start(80);
 // })();
 
-var animation = window.animation;
-
 
 function repeat() {
-    var repeatAnimation = animation().loadImage([images]).changePosition($rabbit1, rightRunningMap, images[0]).repeatForever();
+    var repeatAnimation = animation().loadImage(images).changePosition($rabbit1, rightRunningMap, images[0]).repeatForever();
     repeatAnimation.start(80);
 }
 
 function win() {
-    var winAnimation = animation().loadImage([images]).changePosition($rabbit3, rabbitWinMap, images[2]).repeat(3).then(function() {
+    var winAnimation = animation().loadImage(images).changePosition($rabbit3, rabbitWinMap, images[2]).repeat(3).then(function() {
         console.log('win animation repeat 3 times and fined');
     });
     winAnimation.start(200);
 }
 
 function lose() {
-    var loseAnimation = animation().loadImage([images]).changePosition($rabbit4, rabbitLoseMap, images[1]).wait(3000).repeat(1).then(function() {
+    var loseAnimation = animation().loadImage(images).changePosition($rabbit4, rabbitLoseMap, images[1]).wait(3000).repeat(1).then(function() {
         console.log('lose');
     });
     loseAnimation.start(200);
@@ -112,7 +112,7 @@ function run() {
     var right = true;
     var interval = 50;
 
-    var runAnimation = animation().loadImage([images]).enterFrame(function(success, time) {
+    var runAnimation = animation().loadImage(images).enterFrame(function(success, time) {
         var ratio = time / interval;
         var position;
         var left;
@@ -163,10 +163,12 @@ function uskidStar() {
     var frameLength = 33;
     var frame = 1;
 
-    var starAn = animation().loadImage([images], function()).enterFrame(function(success, time) {
-        console.log('time', frame)
+    var starAn = animation().loadImage(images, function() {
+        console.log('图片加载成功')
+    }).enterFrame(function(success, time) {
+        console.log('time', frame, images)
 
-        $star.style.backgroundImage = `url(${images[frame + 7]})`
+        $star.style.backgroundImage = `url(${images[frame + 7].img})`
         frame++;
         if (frame > frameLength) {
             frame = 0;

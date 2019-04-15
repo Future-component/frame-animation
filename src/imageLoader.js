@@ -2,7 +2,6 @@
  * created by beth on 2016年6月13日
  * 图片预加载模块
  **********************************************/
-'use strict';
 
 /**
  * 预加载图片函数
@@ -21,8 +20,11 @@ function loadImage(images, callback, timeout) {
     //是否加载超时的标志位
     var isTimeout = false;
 
+    console.log('loadImage---1', images)
+
     //对图片数组（或对象）进行遍历
     for (var key in images) {
+        console.log(key, images)
         //过滤prototype上的属性
         if (!images.hasOwnProperty(key)) {
             continue;
@@ -31,12 +33,14 @@ function loadImage(images, callback, timeout) {
         //期望格式是个object:{src:xxx}
         var item = images[key];
 
+        console.log('item:--1', item)
         if (typeof item === 'string') {
             item = images[key] = {
                 src: item
             }
         }
 
+        console.log('item:--2', item, !item || !item.src)
         //如果格式不满足期望，则丢弃此数据进行下一次遍历
         if (!item || !item.src) {
             continue;
@@ -54,8 +58,10 @@ function loadImage(images, callback, timeout) {
 
     //遍历完成如果计数为0，则直接调用callback
     if (!count) {
+        console.log('loadImage---2')
         callback(success);
     } else if (timeout) {
+        console.log('loadImage---3')
         timeoutId = setTimeout(onTimeout, timeout);
     }
 
@@ -65,15 +71,32 @@ function loadImage(images, callback, timeout) {
      * @return {[type]}      [description]
      */
     function doLoad(item) {
+        console.log(item, 'item-doLoad')
         item.status = 'loading';
 
         var img = item.img;
         //定义图片加载成功的回调函数
         img.onload = function() {
-                success = success & true;
-                item.status = 'loaded';
-                done();
-            }
+            success = success & true;
+            item.status = 'loaded';
+
+            // Buffer creation
+            var buffer = document.createElement('canvas');
+
+            buffer.width = img.width;
+            buffer.height = img.height;
+            // var quality = 0.92
+            var quality = 0.6
+
+            var ctx = buffer.getContext('2d');
+            ctx.drawImage(img, 0, 0, img.width, img.height);
+            var path = buffer.toDataURL('image/jpeg', quality);
+            item.img = path;
+            // item.path = path
+            // console.log('path', path)
+            
+            done();
+        }
             //定义图片加载失败的回调函数
         img.onerror = function() {
             success = false;
@@ -99,6 +122,7 @@ function loadImage(images, callback, timeout) {
             //每张图片加载完成，计数器－1，当所有图片加载完成且没有超时的情况
             //清除超时计时器，且执行回调函数
             if (!--count && !isTimeout) {
+                console.log('loadImage---4')
             	clearTimeout(timeoutId);
                 callback(success);
             }

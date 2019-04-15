@@ -3,8 +3,6 @@
  * 动画库
  **********************************************/
 
-'use strict';
-
 var loadImage = require('./imageloader');
 var Timeline = require('./timeline');
 
@@ -47,7 +45,7 @@ function Animation() {
  */
 Animation.prototype.loadImage = function(imglist) {
     var taskFn = function(next) {
-        loadImage(imglist.slice(), next);
+        loadImage(imglist, next);
     }
     var type = TASK_SYNC;
 
@@ -343,5 +341,6 @@ Animation.prototype._next = function(task) {
 }
 
 module.exports = function(){
+    console.log('Animation', Animation)
 	return new Animation();
 }
