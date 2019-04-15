@@ -20,8 +20,6 @@ function loadImage(images, callback, timeout) {
     //是否加载超时的标志位
     var isTimeout = false;
 
-    console.log('loadImage---1', images)
-
     //对图片数组（或对象）进行遍历
     for (var key in images) {
         console.log(key, images)
@@ -33,14 +31,12 @@ function loadImage(images, callback, timeout) {
         //期望格式是个object:{src:xxx}
         var item = images[key];
 
-        console.log('item:--1', item)
         if (typeof item === 'string') {
             item = images[key] = {
                 src: item
             }
         }
 
-        console.log('item:--2', item, !item || !item.src)
         //如果格式不满足期望，则丢弃此数据进行下一次遍历
         if (!item || !item.src) {
             continue;
@@ -58,10 +54,8 @@ function loadImage(images, callback, timeout) {
 
     //遍历完成如果计数为0，则直接调用callback
     if (!count) {
-        console.log('loadImage---2')
         callback(success);
     } else if (timeout) {
-        console.log('loadImage---3')
         timeoutId = setTimeout(onTimeout, timeout);
     }
 
@@ -90,7 +84,7 @@ function loadImage(images, callback, timeout) {
 
             var ctx = buffer.getContext('2d');
             ctx.drawImage(img, 0, 0, img.width, img.height);
-            var path = buffer.toDataURL('image/jpeg', quality);
+            var path = buffer.toDataURL('image/png', quality);
             item.img = path;
             // item.path = path
             // console.log('path', path)

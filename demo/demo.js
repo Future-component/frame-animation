@@ -16,6 +16,7 @@ var $egg = $('egg');
 var $loin = $('loin');
 var $xu = $('xu');
 var $star = $('star');
+var $star1 = $('star1');
 
 var imagesTmp = ['rabbit-big.png', 'rabbit-lose.png', 'rabbit-win.png', 'egg-c.png', 'egg.png', 'loin.png', 'xu.png']
 
@@ -26,7 +27,6 @@ Array(34).fill(0).forEach((item, index) => {
 
 var images = imagesTmp.concat(starImages)
 
-// var imgUrl = 'rabbit-big.png';
 var rightRunningMap = ["0 -854", "-174 -852", "-349 -852", "-524 -852", "-698 -851", "-873 -848"];
 var leftRunningMap = ["0 -373", "-175 -376", "-350 -377", "-524 -377", "-699 -377", "-873 -379"];
 var rabbitWinMap = ["0 0", "-198 0", "-401 0", "-609 0", "-816 0", "0 -96", "-208 -97", "-415 -97", "-623 -97", "-831 -97", "0 -203", "-207 -203", "-415 -203", "-623 -203", "-831 -203", "0 -307", "-206 -307", "-414 -307", "-623 -307"];
@@ -62,41 +62,41 @@ Array(4).fill(0).forEach((item, index) => {
 
 var animation = window.frameAnimation;
 
-// (function() {
-//     var loinAn = animation().loadImage(images).changePosition($loin, loinMap, images[5]).repeatForever();
-//     loinAn.start(100);
-// })();
+(function() {
+    var loinAn = animation().loadImage([images]).changePosition($loin, loinMap, images[5]).repeatForever();
+    loinAn.start(100);
+})();
 
-// (function() {
-//     var egg1An = animation().loadImage(images).changePosition($egg1, egg1Map, images[3]).repeatForever();
-//     egg1An.start(80);
-// })();
+(function() {
+    var egg1An = animation().loadImage([images]).changePosition($egg1, egg1Map, images[3]).repeatForever();
+    egg1An.start(80);
+})();
 
-// (function() {
-//     var eggAn = animation().loadImage(images).changePosition($egg, eggMap, images[4]).repeatForever();
-//     eggAn.start(80);
-// })();
+(function() {
+    var eggAn = animation().loadImage([images]).changePosition($egg, eggMap, images[4]).repeatForever();
+    eggAn.start(80);
+})();
 
-// (function() {
-//     var xuAn = animation().loadImage(images).changePosition($xu, xuMap, images[6]).repeatForever();
-//     xuAn.start(80);
-// })();
+(function() {
+    var xuAn = animation().loadImage([images]).changePosition($xu, xuMap, images[6]).repeatForever();
+    xuAn.start(80);
+})();
 
 
 function repeat() {
-    var repeatAnimation = animation().loadImage(images).changePosition($rabbit1, rightRunningMap, images[0]).repeatForever();
+    var repeatAnimation = animation().loadImage([images]).changePosition($rabbit1, rightRunningMap, images[0]).repeatForever();
     repeatAnimation.start(80);
 }
 
 function win() {
-    var winAnimation = animation().loadImage(images).changePosition($rabbit3, rabbitWinMap, images[2]).repeat(3).then(function() {
+    var winAnimation = animation().loadImage([images]).changePosition($rabbit3, rabbitWinMap, images[2]).repeat(3).then(function() {
         console.log('win animation repeat 3 times and fined');
     });
     winAnimation.start(200);
 }
 
 function lose() {
-    var loseAnimation = animation().loadImage(images).changePosition($rabbit4, rabbitLoseMap, images[1]).wait(3000).repeat(1).then(function() {
+    var loseAnimation = animation().loadImage([images]).changePosition($rabbit4, rabbitLoseMap, images[1]).wait(3000).repeat(1).then(function() {
         console.log('lose');
     });
     loseAnimation.start(200);
@@ -112,7 +112,7 @@ function run() {
     var right = true;
     var interval = 50;
 
-    var runAnimation = animation().loadImage(images).enterFrame(function(success, time) {
+    var runAnimation = animation().loadImage([images]).enterFrame(function(success, time) {
         var ratio = time / interval;
         var position;
         var left;
@@ -151,10 +151,10 @@ function run() {
     runAnimation.start(interval);
 }
 
-// repeat();
-// win();
-// lose();
-// run();
+repeat();
+win();
+lose();
+run();
 
 var starStyle = [1187, 1080]
 
@@ -166,7 +166,7 @@ function uskidStar() {
     var starAn = animation().loadImage(images, function() {
         console.log('图片加载成功')
     }).enterFrame(function(success, time) {
-        console.log('time', frame, images)
+        // console.log('time', frame, images)
 
         $star.style.backgroundImage = `url(${images[frame + 7].img})`
         frame++;

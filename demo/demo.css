@@ -56,15 +56,19 @@
 	height: 195px;
 }
 
-#star {
+.star {
 	position: absolute;
 	top: 50%;
-	left: 50%;
-	transform: translate(-50%, -50%);
+	left: 25%;
+	transform: translate(-25%, -50%);
 	z-index: 1;
 	width: 474px;
 	height: 432px;
 	background-repeat: no-repeat;
 	background-size: cover;
 	background-position: 0px 0px;
+}
+
+#star1 {
+	left: 75%;
 }

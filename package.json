@@ -1,6 +1,6 @@
 {
   "name": "frame-animation",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "js实现帧动画的原理",
   "main": "./build/index.js",
   "scripts": {
@@ -18,7 +18,11 @@
   },
   "homepage": "https://github.com/BETH-zhang/frame-animation#readme",
   "devDependencies": {
+    "pkgfiles": "^2.3.2",
     "webpack": "^4.30.0",
     "webpack-cli": "^3.3.0"
-  }
+  },
+  "files": [
+		"build"
+	]
 }
