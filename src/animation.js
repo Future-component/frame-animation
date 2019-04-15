@@ -341,6 +341,5 @@ Animation.prototype._next = function(task) {
 }
 
 module.exports = function(){
-    console.log('Animation', Animation)
 	return new Animation();
 }

@@ -22,7 +22,6 @@ function loadImage(images, callback, timeout) {
 
     //对图片数组（或对象）进行遍历
     for (var key in images) {
-        console.log(key, images)
         //过滤prototype上的属性
         if (!images.hasOwnProperty(key)) {
             continue;
@@ -65,7 +64,6 @@ function loadImage(images, callback, timeout) {
      * @return {[type]}      [description]
      */
     function doLoad(item) {
-        console.log(item, 'item-doLoad')
         item.status = 'loading';
 
         var img = item.img;
@@ -86,8 +84,6 @@ function loadImage(images, callback, timeout) {
             ctx.drawImage(img, 0, 0, img.width, img.height);
             var path = buffer.toDataURL('image/png', quality);
             item.img = path;
-            // item.path = path
-            // console.log('path', path)
             
             done();
         }
@@ -116,7 +112,6 @@ function loadImage(images, callback, timeout) {
             //每张图片加载完成，计数器－1，当所有图片加载完成且没有超时的情况
             //清除超时计时器，且执行回调函数
             if (!--count && !isTimeout) {
-                console.log('loadImage---4')
             	clearTimeout(timeoutId);
                 callback(success);
             }
