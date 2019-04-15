@@ -1,5 +1,5 @@
 {
-  "name": "@bb/frame-animation",
+  "name": "bb-frame-animation",
   "version": "1.0.1",
   "description": "js实现帧动画的原理",
   "main": "./build/index.js",
