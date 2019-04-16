@@ -1,6 +1,6 @@
 {
   "name": "bb-frame-animation",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "js实现帧动画的原理",
   "main": "./build/index.js",
   "scripts": {
