@@ -43,9 +43,12 @@ function Animation() {
  * @param  {[type]} imglist [description]
  * @return {[type]}         [description]
  */
-Animation.prototype.loadImage = function(imglist) {
+Animation.prototype.loadImage = function(imglist, loadFinish) {
     var taskFn = function(next) {
-        loadImage(imglist, next);
+        loadImage(imglist, (success) => {
+            loadFinish(success);
+            next(success);
+        });
     }
     var type = TASK_SYNC;
 
