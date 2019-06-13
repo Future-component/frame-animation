@@ -67,6 +67,9 @@ function loadImage(images, callback, timeout) {
         item.status = 'loading';
 
         var img = item.img;
+        // 解决图片跨域问题
+        img.setAttribute('crossOrigin', 'anonymous');
+        
         //定义图片加载成功的回调函数
         img.onload = function() {
             success = success & true;
@@ -102,10 +105,7 @@ function loadImage(images, callback, timeout) {
          * @return {Function} [description]
          */
         function done() {
-            // 解决图片跨域问题
-            img.setAttribute('crossOrigin', 'anonymous');
-            img.src = src;
-            
+
             img.onload = img.onerror = null;
             try {
                 delete window[item.id];
