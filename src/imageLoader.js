@@ -102,6 +102,10 @@ function loadImage(images, callback, timeout) {
          * @return {Function} [description]
          */
         function done() {
+            // 解决图片跨域问题
+            img.setAttribute('crossOrigin', 'anonymous');
+            img.src = src;
+            
             img.onload = img.onerror = null;
             try {
                 delete window[item.id];
