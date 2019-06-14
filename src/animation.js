@@ -45,7 +45,7 @@ function Animation() {
  */
 Animation.prototype.loadImage = function(imglist, loadFinish) {
     var taskFn = function(next) {
-        loadImage(imglist, (success) => {
+        loadImage(imglist, function(success) {
             loadFinish(success);
             next(success);
         });
