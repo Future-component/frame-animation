@@ -1,12 +1,13 @@
 .rabbit{
 	position: absolute;
-	left: 100px;
+	top: 150px;
+	left: 150px;
 	width: 102px;
 	height: 80px;
 	background-repeat: no-repeat;
 }
 
-#rabbit1{
+/* #rabbit1{
 	top: 50px;
 }
 #rabbit2{
@@ -17,11 +18,14 @@
 }
 #rabbit4{
 	top: 500px;
-}
+} */
 
 .uskid {
 	position: absolute;
+	/* left: 50%; */
+	top: 50%;
 	left: 50%;
+	transform: translate(-50%, -50%);
 	width: 102px;
 	height: 80px;
 	background-repeat: no-repeat;
@@ -29,29 +33,29 @@
 }
 
 #egg1 {
-	top: 50px;
+	/* top: 50px; */
 	width: 178px;
 	height: 195px;
 }
 
 #egg {
-	left: initial;
-	right: 50px;
-	top: 50px;
+	/* left: initial; */
+	/* right: 50px;
+	top: 50px; */
 	width: 178px;
 	height: 195px;
 }
 
 #loin {
-	top: 350px;
+	/* top: 350px; */
 	width: 178px;
 	height: 195px;
 }
 
 #xu {
-	left: initial;
-	right: 50px;
-	top: 350px;
+	/* left: initial; */
+	/* right: 50px;
+	top: 350px; */
 	width: 178px;
 	height: 195px;
 }
@@ -59,15 +63,15 @@
 .star {
 	position: absolute;
 	top: 50%;
-	left: 25%;
-	transform: translate(-25%, -50%);
+	left: 50%;
+	transform: translate(-50%, -50%);
 	z-index: 1;
 	width: 474px;
 	height: 432px;
 	background-repeat: no-repeat;
 	background-size: cover;
 	background-position: 0px 0px;
-	background: #000000;
+	border: 1px solid #cccccc;
 }
 
 .star div {
@@ -77,17 +81,4 @@
 
 #star1 {
 	left: 75%;
-}
-
-.startClass {
-	position: absolute;
-	top: 50%;
-	left: 55%;
-	transform: translate(-25%, -50%);
-	z-index: 1;
-	width: 474px;
-	height: 432px;
-	background-repeat: no-repeat;
-	background-size: cover;
-	background-position: 0px 0px;
 }
