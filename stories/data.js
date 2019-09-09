@@ -67,7 +67,29 @@ var images = [
   img7,
 ]
 
+import nz1 from '../demo/nz/1.jpeg'
+import nz2 from '../demo/nz/2.jpeg'
+import nz3 from '../demo/nz/3.jpeg'
+import nz4 from '../demo/nz/4.jpeg'
+import nz5 from '../demo/nz/5.jpeg'
+import nz6 from '../demo/nz/6.jpeg'
+import nz7 from '../demo/nz/7.jpeg'
+import nz8 from '../demo/nz/8.jpeg'
+
+// var nzImgs = Array(8).fill(0).map((item, index) => (import(`../demo/nz/${index + 1}.jpeg`)))
+var nzImgs = [
+  nz1,
+  nz2,
+  nz3,
+  nz4,
+  nz5,
+  nz6,
+  nz7,
+  nz8,
+]
+
 export default {
   starImages,
   images,
+  nzImgs,
 }

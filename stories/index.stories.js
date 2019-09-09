@@ -243,6 +243,9 @@ storiesOf('其他动画', module)
     var $star = $('star');
     var frameLength = data.starImages.length - 1;
     var frame = 1;
+    var timer = null
+    var flag = 0
+    var count = 1
   
     data.starImages.forEach((src, index) => {
         var ele = document.createElement('div')
@@ -253,11 +256,25 @@ storiesOf('其他动画', module)
         ele.style.display = 'none'
         $star.appendChild(ele)
     })
+
+    $star.addEventListener('click', function() {
+      if (!flag) {
+        flag = 1
+        clearTimeout(timer)
+        timer = null
+      } else {
+        flag = 0
+        frameFunc1()
+      }
+    })
     function frameFunc1() {
-        var allEle = document.querySelectorAll('.star-item')
-        allEle.forEach((item) => {
-            item.style.display = 'none'
-        })
+        if (frame === 1) {
+          var ele = document.getElementById(`star-${frameLength}`)
+          ele.style.display = 'none'
+        } else {
+          var ele = document.getElementById(`star-${frame - 1}`)
+          ele.style.display = 'none'
+        }
         var ele = document.getElementById(`star-${frame}`)
         if (ele) {
             ele.style.display = 'block'
@@ -265,11 +282,13 @@ storiesOf('其他动画', module)
         
         frame++
         if (frame > frameLength) {
-            frame = 0;
+          console.log('动画执行次数：' + count)
+          count++
+          frame = 1;
         }
   
         // requestAnimationFrame(frameFunc1)
-        setTimeout(() => {
+        timer = setTimeout(() => {
             frameFunc1()
         }, fps || 120)
     }
@@ -328,6 +347,36 @@ storiesOf('送星星动画测试', module)
   .add('元素隐藏-40fps', () => {
     setTimeout(() => {
       uskidStar3(40)
+    }, 0)
+    return '<div class="star" id="star"></div>'
+  })
+
+storiesOf('表情包', module)
+  .add('哪吒', () => {
+    setTimeout(() => {
+      var $star = $('star');
+      var frameLength = data.nzImgs.length - 1;
+      var frame = 1;
+      var flag = 0
+      var count = 1
+    
+      $star.innerText = '图片加载中。。。。。。'
+      var starAn = animation().loadImage(data.nzImgs, function() {
+          console.log('图片加载成功')
+          $star.innerText = '图片加载成功'
+      }).enterFrame(function(success, time) {
+          // console.log('time', frame, images)
+          $star.style.backgroundImage = `url(${data.nzImgs[frame].img})`
+          frame++;
+          if (frame > frameLength) {
+              $star.innerText = '动画执行次数：' + count
+              count++
+              frame = 0;
+              success();
+              return;
+          }
+      }).repeatForever()
+      starAn.start(500)
     }, 0)
     return '<div class="star" id="star"></div>'
   })
