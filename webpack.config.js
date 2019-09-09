@@ -3,6 +3,7 @@
  * placeholder
  **********************************************/
  module.exports = {
+	mode: 'production',
  	entry: {
  		index: './src/animation.js'
  	},

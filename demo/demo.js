@@ -62,25 +62,25 @@ Array(4).fill(0).forEach((item, index) => {
 
 var animation = window.frameAnimation;
 
-(function() {
-    var loinAn = animation().loadImage([images]).changePosition($loin, loinMap, images[5]).repeatForever();
-    loinAn.start(100);
-})();
+// (function() {
+//     var loinAn = animation().loadImage([images]).changePosition($loin, loinMap, images[5]).repeatForever();
+//     loinAn.start(100);
+// })();
 
-(function() {
-    var egg1An = animation().loadImage([images]).changePosition($egg1, egg1Map, images[3]).repeatForever();
-    egg1An.start(80);
-})();
+// (function() {
+//     var egg1An = animation().loadImage([images]).changePosition($egg1, egg1Map, images[3]).repeatForever();
+//     egg1An.start(80);
+// })();
 
-(function() {
-    var eggAn = animation().loadImage([images]).changePosition($egg, eggMap, images[4]).repeatForever();
-    eggAn.start(80);
-})();
+// (function() {
+//     var eggAn = animation().loadImage([images]).changePosition($egg, eggMap, images[4]).repeatForever();
+//     eggAn.start(80);
+// })();
 
-(function() {
-    var xuAn = animation().loadImage([images]).changePosition($xu, xuMap, images[6]).repeatForever();
-    xuAn.start(80);
-})();
+// (function() {
+//     var xuAn = animation().loadImage([images]).changePosition($xu, xuMap, images[6]).repeatForever();
+//     xuAn.start(80);
+// })();
 
 
 function repeat() {
@@ -151,10 +151,10 @@ function run() {
     runAnimation.start(interval);
 }
 
-repeat();
-win();
-lose();
-run();
+// repeat();
+// win();
+// lose();
+// run();
 
 var starStyle = [1187, 1080]
 
@@ -163,12 +163,12 @@ function uskidStar() {
     var frameLength = 33;
     var frame = 1;
 
-    var starAn = animation().loadImage(images, function() {
+    var starAn = animation().loadImage(starImages, function() {
         console.log('图片加载成功')
     }).enterFrame(function(success, time) {
         // console.log('time', frame, images)
 
-        $star.style.backgroundImage = `url(${images[frame + 7].img})`
+        $star.style.backgroundImage = `url(${starImages[frame].img})`
         frame++;
         if (frame > frameLength) {
             frame = 0;
@@ -179,9 +179,60 @@ function uskidStar() {
     starAn.start(120)
 }
 
-uskidStar()
+// uskidStar()
 
+// var startClassImages = Array(8).fill('https://static.uskid.com/class/tuoke/startClassOrgin').map((cdn, index) => `${cdn}/${index + 1}.png`)
+var startClassImages = [
+    '//static.uskid.com/file/jpeg/k07pnuvw_hXIuBzf2x3gnJbowgABaqGLp.jpeg'
+]
+var endClassImages = [
+    'https://hq-static.smartstudy.com/web/garden/jxbl4ri2_EjUknteer8vYyVXBA2kc1My2.png',
+    'https://hq-static.smartstudy.com/web/garden/jxbl4i0u_1NERHPF1moh5T4amIEVZpRIC.png',
+    'https://hq-static.smartstudy.com/web/garden/jxbl4khc_XCIon8zbER7DFfmCDJoyb3O7.png',
+    'https://hq-static.smartstudy.com/web/garden/jxbl4mvp_GAwjzcLgaEi64EwOmOZQn7f2.png',
+    'https://hq-static.smartstudy.com/web/garden/jxbl4p3x_Sm1REItuSTL5JynvIJDwlx4V.png',
+  ]
+function uskidStartClass() {
+    var frameLength = startClassImages.length;
+    var frame = 1;
 
+    var starAn = animation().loadImage(startClassImages, function() {
+        console.log('图片加载成功')
+    }).enterFrame(function(success, time) {
+        // console.log('time', frame, images)
+
+        $star.style.backgroundImage = `url(${startClassImages[frame].img})`
+        frame++;
+        if (frame > frameLength) {
+            frame = 0;
+            success();
+            return;
+        }
+    }).repeatForever()
+    starAn.start(120)
+}
+uskidStartClass()
+
+function uskidEndClass() {
+    var frameLength = endClassImages.length;
+    var frame = 1;
+
+    var starAn = animation().loadImage(endClassImages, function() {
+        console.log('图片加载成功')
+    }).enterFrame(function(success, time) {
+        // console.log('time', frame, images)
+
+        $star.style.backgroundImage = `url(${endClassImages[frame].img})`
+        frame++;
+        if (frame > frameLength) {
+            frame = 0;
+            success();
+            return;
+        }
+    }).repeatForever()
+    starAn.start(120)
+}
+uskidEndClass()
 
 // animation(ele, positions, imgUrl);
 

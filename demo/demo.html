@@ -5,6 +5,7 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<title></title>
 	<link rel="stylesheet" href="./demo.css?t=13">
+	<script src="../node_modules/us-utils-asyncloadscript/index.js"></script>
 </head>
 <body>
 	<div class="rabbit" id="rabbit1"></div>
@@ -19,8 +20,14 @@
 
 	<div class="star" id="star"></div>
 	<div class="star" id="star1"></div>
+	<div class="startClass" id="startClass"></div>
 
-	<script type="text/javascript" src="../build/index.js?t=20"></script>
-	<script type="text/javascript" src="./demo.js?t=60"></script>
+	<script>
+		console.log(window.GlobalLoadScript)
+		window.GlobalLoadScript(`../build/index.js?t=${new Date().getTime()}`, () => {
+			console.log(window.UsCommonUtils)
+		})
+		window.GlobalLoadScript(`./demo.js?t-${new Date().getTime()}`)
+  </script>
 </body>
 </html>

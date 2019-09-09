@@ -72,3 +72,16 @@
 #star1 {
 	left: 75%;
 }
+
+.startClass {
+	position: absolute;
+	top: 50%;
+	left: 55%;
+	transform: translate(-25%, -50%);
+	z-index: 1;
+	width: 474px;
+	height: 432px;
+	background-repeat: no-repeat;
+	background-size: cover;
+	background-position: 0px 0px;
+}
