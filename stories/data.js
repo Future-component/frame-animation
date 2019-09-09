@@ -77,7 +77,7 @@ import nz7 from '../demo/nz/7.jpeg'
 import nz8 from '../demo/nz/8.jpeg'
 
 // var nzImgs = Array(8).fill(0).map((item, index) => (import(`../demo/nz/${index + 1}.jpeg`)))
-var nzImgs = [
+var nzImgs1 = [
   nz1,
   nz2,
   nz3,
@@ -88,8 +88,11 @@ var nzImgs = [
   nz8,
 ]
 
+var nzImgs = Array(8).fill(0).map((item, index) => (`http://localhost:8080/demo/nz/${index + 1}.jpeg`))
+
 export default {
   starImages,
   images,
   nzImgs,
+  nzImgs1,
 }

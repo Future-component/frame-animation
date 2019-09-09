@@ -82,3 +82,25 @@
 #star1 {
 	left: 75%;
 }
+
+
+.images {
+	margin-top: 100px;
+	height: 392px;
+	position: relative;
+}
+.images img {
+  display: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 600px;
+  height: 392px;
+}
+.images img.render {
+  display: block;
+  background: #fff;
+}
+.demo.original .images img.original {
+  display: block;
+}

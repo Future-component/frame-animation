@@ -1,7 +1,11 @@
 import { document, console } from 'global';
 import { storiesOf } from '@storybook/html';
+import globalLoadScript from 'us-utils-asyncloadscript'
 import data from './data'
 import '../build/index'
+// import '../demo/gif.js'
+// import '../demo/gif.worker.js'
+// import '../demo/async.min.js'
 import '../demo/demo.css'
 
 var animation = window.frameAnimation;
@@ -379,4 +383,229 @@ storiesOf('表情包', module)
       starAn.start(500)
     }, 0)
     return '<div class="star" id="star"></div>'
+  })
+
+storiesOf('动画', module)
+  .add('canvas-路径', () => {
+    function init() {
+      function customizePath(path, func) {
+        const pathElement = document.createElementNS('http://www.w3.org/2000/svg',"path"); 
+        pathElement.setAttributeNS(null, 'd', path);
+          const length = pathElement.getTotalLength();
+          const duration = 1000; 
+          const interval = length / duration;
+          let time = 0, step = 0; 
+        
+            const timer = setInterval(function() {
+              if (time <= duration) {
+                    const x = parseInt(pathElement.getPointAtLength(step).x);
+                    const y = parseInt(pathElement.getPointAtLength(step).y);
+                    func(x, y);
+                    step++;
+              } else {
+                    clearInterval(timer)
+              }
+          }, interval);
+      }
+      
+      const path = 'M0,0 C8,33.90861 25.90861,16 48,16 C70.09139,16 88,33.90861 88,56 C88,78.09139 105.90861,92 128,92 C150.09139,92 160,72 160,56 C160,40 148,24 128,24 C108,24 96,40 96,56 C96,72 105.90861,92 128,92 C154,93 168,78 168,56 C168,33.90861 185.90861,16 208,16 C230.09139,16 248,33.90861 248,56 C248,78.09139 230.09139,96 208,96 L48,96 C25.90861,96 8,78.09139 8,56 Z';
+      const canvas = document.querySelector('canvas');
+      const context = canvas.getContext('2d');
+      function move(x, y) {
+            context.clearRect(0, 0, canvas.width, canvas.height);
+            context.beginPath();
+            context.arc(x, y, 25, 0, Math.PI*2, true);
+            context.fillStyle = '#f0f';
+            context.fill();
+            context.closePath();
+      }
+
+      customizePath(path, move)
+    }
+    
+    setTimeout(() => {
+      init()
+    }, 0)
+    return '<canvas></canvas>'
+  })
+  .add('canvas-帧动画', () => {
+    setTimeout(() => {
+      var canvas = document.querySelector( '#cavsElem' );
+      var ctx = canvas.getContext( '2d' );
+      var frameLength = data.nzImgs1.length - 1;
+      var frame = 1;
+      var flag = 0
+      var count = 1
+      var canvasImgs = []
+      var timer = null
+
+      canvas.addEventListener('click', function() {
+        if (!flag) {
+          flag = 1
+          clearTimeout(timer)
+          timer = null
+        } else {
+          flag = 0
+          frameFunc()
+        }
+      })
+      function frameFunc() {
+        if (!canvasImgs[frame]) {
+          var img = new Image()
+          img.src = data.nzImgs1[frame];
+          img.setAttribute('crossOrigin', 'anonymous');
+          //定义图片加载成功的回调函数
+          img.onload = function() {
+            canvasImgs[frame] = img
+            ctx.clearRect(0,0,canvas.width,canvas.height);
+            ctx.drawImage(img, 0, 0, canvas.width, canvas.height)
+          }
+        } else {
+          ctx.clearRect(0,0,canvas.width,canvas.height);
+          ctx.drawImage(canvasImgs[frame], 0, 0, canvas.width, canvas.height)
+        }
+
+        frame++
+        if (frame > frameLength) {
+          // console.log('动画执行次数：' + count)
+          count++
+          frame = 1;
+        }
+  
+        // requestAnimationFrame(frameFunc1)
+        timer = setTimeout(() => {
+          frameFunc()
+        }, 120)
+      }
+
+      frameFunc()
+
+    }, 0)
+    return '<canvas class="star" id="cavsElem"></canvas>'
+  })
+  .add('canvas-导出gif', () => {
+    setTimeout(() => {
+      globalLoadScript()('http://127.0.0.1:8080/demo/gif.js', () => {
+        var btn = document.querySelector('button')
+      var startTime = null;
+      var ref2 = null
+      var ref1 = null
+      var ref = null
+      var now = ((ref = window.performance) != null ? (ref1 = ref.now) != null ? ref1.bind(window.performance) : void 0 : void 0) || Date.now;
+
+      var loadImage = function(src, callback) {
+        var img;
+        img = new Image();
+        img.onload = function() {
+          return callback(null, img);
+        };
+        img.onerror = function() {
+          return callback(new Error("Could load " + src));
+        };
+        return img.src = src;
+      };
+
+      var blobURLSupport = ((ref2 = window.URL) != null ? ref2.createObjectURL : void 0) != null;
+
+      var buildDataURL = (function() {
+        var charMap, i, j;
+        charMap = {};
+        for (i = j = 0; j < 256; i = ++j) {
+          charMap[i] = String.fromCharCode(i);
+        }
+        return function(data) {
+          var k, ref3, str;
+          str = '';
+          for (i = k = 0, ref3 = data.length; 0 <= ref3 ? k < ref3 : k > ref3; i = 0 <= ref3 ? ++k : --k) {
+            str += charMap[data[i]];
+          }
+          return 'data:image/gif;base64,' + btoa(str);
+        };
+      })();
+
+
+      btn.addEventListener('click', () => {
+        var renderimg = document.querySelector('.render');
+        var imagesEle = document.querySelectorAll('.original')
+        var images = []
+        imagesEle.forEach(item => {
+          images.push(item.src)
+        })
+
+        var gif = new GIF({
+          debug: true,
+          quality: 10,
+          workers: 2
+        });
+
+        gif.on('start', function() {
+          return startTime = now();
+        });
+        gif.on('finished', function(blob, data) {
+          var delta;
+          if (blobURLSupport) {
+            renderimg.src = URL.createObjectURL(blob);
+          } else {
+            renderimg.src = buildDataURL(data);
+          }
+          delta = now() - startTime;
+          return console.log('text', "Rendered " + images.length + " frame(s) at q" + gif.options.quality + " in " + (delta.toFixed(2)) + "ms");
+        });
+        gif.on('progress', function(p) {
+          return console.log('text', "Rendering " + images.length + " frame(s) at q" + gif.options.quality + "... " + (Math.round(p * 100)) + "%");
+        });
+
+        var load = function(images, index, callback) {
+          if (index >= images.length) {
+            callback()
+          } else {
+            loadImage(images[index], (error, img) => {
+              console.log('img: ', img, index)
+              images[index] = img
+              load(images, index + 1, callback)
+            })
+          }
+        }
+
+        load(images, 0, () => {
+          var image, j, len;
+          console.log(images)
+          
+          for (j = 0, len = images.length; j < len; j++) {
+            image = images[j];
+            gif.addFrame(image, {
+              delay: 120, // 延迟时间
+              copy: true
+            });
+          }
+
+          // gif.setOption('dither', this.value === 'None' ? false : this.value);
+          // gif.abort();
+
+          // gif.setOption('repeat', value);
+          // gif.abort();
+
+          // gif.setOption('quality', 5); // 30 - 1
+          // gif.abort();
+          gif.render();
+        })
+        // async.map(images, loadImage, function(error, images) {
+         
+        // });
+
+        // gif.on('finished', function(blob) {
+        //   window.open(URL.createObjectURL(blob));
+        // });
+        
+        // gif.render();
+
+      })
+    })
+    }, 0)
+
+    var imagesHtml = data.nzImgs1.map((img) => (`<img class="original" src=${img} />`))
+    return `<button>导出gif图</button><div class="images">
+      <img class="render" />
+      ${imagesHtml}
+    </div>`
   })
