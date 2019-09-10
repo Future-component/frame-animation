@@ -523,7 +523,6 @@ storiesOf('动画', module)
         };
       })();
 
-
       btn.addEventListener('click', () => {
         var renderimg = document.querySelector('.render');
         var imagesEle = document.querySelectorAll('.original')
@@ -541,6 +540,7 @@ storiesOf('动画', module)
         gif.on('start', function() {
           return startTime = now();
         });
+
         gif.on('finished', function(blob, data) {
           var delta;
           if (blobURLSupport) {
@@ -551,6 +551,7 @@ storiesOf('动画', module)
           delta = now() - startTime;
           return console.log('text', "Rendered " + images.length + " frame(s) at q" + gif.options.quality + " in " + (delta.toFixed(2)) + "ms");
         });
+
         gif.on('progress', function(p) {
           return console.log('text', "Rendering " + images.length + " frame(s) at q" + gif.options.quality + "... " + (Math.round(p * 100)) + "%");
         });
@@ -587,25 +588,25 @@ storiesOf('动画', module)
 
           // gif.setOption('quality', 5); // 30 - 1
           // gif.abort();
+
+          gif.on('finished', function(blob) {
+            window.open(URL.createObjectURL(blob));
+          });
+          
           gif.render();
         })
         // async.map(images, loadImage, function(error, images) {
          
         // });
-
-        // gif.on('finished', function(blob) {
-        //   window.open(URL.createObjectURL(blob));
-        // });
-        
-        // gif.render();
-
       })
     })
     }, 0)
 
-    var imagesHtml = data.nzImgs1.map((img) => (`<img class="original" src=${img} />`))
+    var imagesHtml = data.nzImgs.map((img) => (`<img class="original" src=${img} />`))
+    var referenceHtml = `<img class="reference" src=${data.nzGif}>`
     return `<button>导出gif图</button><div class="images">
       <img class="render" />
       ${imagesHtml}
+      ${referenceHtml}
     </div>`
   })
