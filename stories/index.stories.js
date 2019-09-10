@@ -485,7 +485,7 @@ storiesOf('动画', module)
   })
   .add('canvas-导出gif', () => {
     setTimeout(() => {
-      globalLoadScript()('http://127.0.0.1:8080/demo/gif.js', () => {
+      globalLoadScript()('/gif.js', () => {
         var btn = document.querySelector('button')
       var startTime = null;
       var ref2 = null
