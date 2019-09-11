@@ -8,6 +8,7 @@
     "pkgfiles": "node_modules/pkgfiles/bin/pkgfiles.js ",
     "build": "webpack --config webpack.config.js",
     "prepublish": "npm run build",
+    "start": "npm run storybook",
     "storybook": "start-storybook -p 6006",
     "httpServer": "http-server --cors",
     "build-storybook": "build-storybook"
